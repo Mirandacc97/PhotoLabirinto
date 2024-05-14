@@ -12,7 +12,7 @@ public class Funcoes {
 
   public static BufferedImage insereImagem() {
     try {
-      return ImageIO.read(new File("java/untitled/src/main/imagens/labirinto_01.jpg"));
+      return ImageIO.read(new File("src/imagens/labirinto_01.png"));
     } catch (IOException e) {
       System.out.println("Erro ao carregar a imagem");
       throw new RuntimeException(e);
