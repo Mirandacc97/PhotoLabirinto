@@ -4,8 +4,7 @@ import org.example.menu.Menu;
 import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
-import static org.example.uteis.Funcoes.exibeImagem;
-import static org.example.uteis.Funcoes.insereImagem;
+import static org.example.uteis.Funcoes.*;
 
 public class Main {
 
@@ -28,7 +27,7 @@ public class Main {
             }
             if (opcaoSelecionado == 2) {
                 try {
-                    exibeImagem(imagemUtilizada);
+                    esclareceImagem(imagemUtilizada);
                 }
                 catch (Exception e) {
                     deuFalha = true;

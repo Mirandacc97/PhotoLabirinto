@@ -12,7 +12,7 @@ public class Funcoes {
 
   public static BufferedImage insereImagem() {
     try {
-      return ImageIO.read(new File("src/imagens/labirinto_01.png"));
+      return ImageIO.read(new File("imagens/mamografia.png"));
     } catch (IOException e) {
       System.out.println("Erro ao carregar a imagem");
       throw new RuntimeException(e);
@@ -30,6 +30,26 @@ public class Funcoes {
     frame.pack();
     frame.setVisible(true);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+  }
+
+  public static void esclareceImagem(BufferedImage img) {
+    int altura = img.getHeight();
+    int largura = img.getWidth();
+
+    BufferedImage imgSaida = new BufferedImage(largura, altura, img.getType());
+
+    for (int h = 0; h < altura; h++) {
+      for (int w = 0; w < largura; w++) {
+        int rgb = img.getRGB(w, h);
+        Color cor = new Color(rgb);
+        int red = cor.getRed();
+        int green = cor.getGreen();
+        int blue = cor.getBlue();
+        Color novaCor = new Color(255 - red, 255 - green, 255 - blue);
+        imgSaida.setRGB(w, h, novaCor.getRGB());
+      }
+    }
+    exibeImagem(imgSaida);
   }
 
 }

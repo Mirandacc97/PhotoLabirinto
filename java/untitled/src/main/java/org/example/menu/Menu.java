@@ -16,7 +16,8 @@ public class Menu {
                 .append("\n")
                 .append("///MENU///////////////////////////////////////////")
                 .append("\n")
-                .append("///OPCAO 1 - Inserir imagem///////////////////////");
+                .append("///OPCAO 1 - Inserir imagem///////////////////////")
+                .append("///OPCAO 2 - Esclarece a imagem///////////////////");
 
         Scanner teclado = new Scanner(System.in);
         System.out.println(menu.toString() + teclado.nextInt());
