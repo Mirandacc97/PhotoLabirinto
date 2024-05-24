@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.menu.Menu;
+
 import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
@@ -11,8 +12,31 @@ public class Main {
     private static BufferedImage imagemUtilizada = null;
 
     public static void main(String[] args) {
-        int opcaoSelecionado = 0;
+        imagemUtilizada = insereImagem();
+        exibeImagem(imagemUtilizada);
+        imagemUtilizada = binarizacao(imagemUtilizada, 15);
+        exibeImagem(imagemUtilizada);
+        int rgb = buscaCorIntParede(imagemUtilizada);
+        boolean corParede = ehCorCorretaParede(imagemUtilizada, rgb);
+    }
+
+    private static void verificaSeDeuFalha(boolean deuFalha) {
+        if (deuFalha) {
+            Scanner teclado = new Scanner(System.in);
+            StringBuilder texto = new StringBuilder()
+                    .append("Ultimo comando executado deu erro, gostaria de reiniciar o processo?")
+                    .append("1 - Sim")
+                    .append("2 - Não");
+            System.out.println(texto.toString() + teclado.nextLine());
+
+            if (teclado.nextInt() == 999)
+                imagemUtilizada = null;
+        }
+    }
+
+    private static void lacoMenu() {
         boolean deuFalha = false;
+        int opcaoSelecionado = 0;
         while (opcaoSelecionado != 99) {
             verificaSeDeuFalha(deuFalha);
             opcaoSelecionado = Menu.exibeMenu();
@@ -34,20 +58,15 @@ public class Main {
                     System.out.println(e.toString());
                 }
             }
-        }
-    }
-    private static void verificaSeDeuFalha(boolean deuFalha) {
-        if (deuFalha) {
-            Scanner teclado = new Scanner(System.in);
-
-            StringBuilder texto = new StringBuilder();
-            texto.append("Ultimo comando executado deu erro, gostaria de reiniciar o processo?");
-            texto.append("1 - Sim");
-            texto.append("2 - Não");
-            System.out.println(texto.toString() + teclado.nextLine());
-
-            if (teclado.nextInt() == 1)
-                imagemUtilizada = null;
+            if (opcaoSelecionado == 3) {
+                try {
+                    binarizacao(imagemUtilizada, 150);
+                }
+                catch (Exception e) {
+                    deuFalha = true;
+                    System.out.println(e.toString());
+                }
+            }
         }
     }
 }
