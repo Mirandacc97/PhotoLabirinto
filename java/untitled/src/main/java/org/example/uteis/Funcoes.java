@@ -30,26 +30,6 @@ public class Funcoes {
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
 
-  public static void esclareceImagem(BufferedImage img) {
-    int altura = img.getHeight();
-    int largura = img.getWidth();
-
-    BufferedImage imgSaida = new BufferedImage(largura, altura, img.getType());
-
-    for (int h = 0; h < altura; h++) {
-      for (int w = 0; w < largura; w++) {
-        int rgb = img.getRGB(w, h);
-        Color cor = new Color(rgb);
-        int red = cor.getRed();
-        int green = cor.getGreen();
-        int blue = cor.getBlue();
-        Color novaCor = new Color(255 - red, 255 - green, 255 - blue);
-        imgSaida.setRGB(w, h, novaCor.getRGB());
-      }
-    }
-    exibeImagem(imgSaida);
-  }
-
   public static BufferedImage binarizacao(BufferedImage imgEntrada, int limiar) {
     int largura = imgEntrada.getWidth();
     int altura = imgEntrada.getHeight();
@@ -85,6 +65,9 @@ public class Funcoes {
         }
       }
     }
+
+    mostraCor(img, corUm);
+
     return corDois;
   }
 
@@ -97,15 +80,23 @@ public class Funcoes {
   }
 
   public static boolean ehCorCorretaParede(BufferedImage img, int corRgb) {
+    int quantidadePixelsNormais = 0;
+    int quantidadePixelsVerdes = 0;
     BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
     for(int height = 0; height < img.getHeight(); ++height) {
       for(int width = 0; width < img.getWidth(); ++width) {
-        if (corRgb == img.getRGB(width, height))
+        if (corRgb == img.getRGB(width, height)) {
           imgSaida.setRGB(width, height, img.getRGB(width, height));
-        else
+          quantidadePixelsNormais += 1;
+        }
+        else {
           imgSaida.setRGB(width, height, new Color(75, 100, 44).getRGB());//img.getRGB(width, height));
+          quantidadePixelsVerdes += 1;
+        }
       }
     }
+    System.out.println(" Quantidade de pixels normais - " + quantidadePixelsNormais);
+    System.out.println(" Quantidade de pixels verdes - " + quantidadePixelsVerdes);
     exibeImagem(imgSaida);
     return false;
   }
@@ -115,6 +106,19 @@ public class Funcoes {
   }
   public static int pegaComprimentoImagem(BufferedImage img) {
     return img.getHeight();
+  }
+
+  private static void mostraCor(BufferedImage img, int cor) {
+    int largura = img.getWidth();
+    int altura = img.getHeight();
+    BufferedImage imgSaida = new BufferedImage(largura, altura, img.getType());
+
+    for(int height = 0; height < img.getHeight(); ++height) {
+      for(int width = 0; width < img.getWidth(); ++width) {
+        imgSaida.setRGB(width, height, cor);//img.getRGB(width, height));
+      }
+    }
+    exibeImagem(imgSaida);
   }
 
 }

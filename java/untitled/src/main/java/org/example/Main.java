@@ -13,9 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
         imagemUtilizada = insereImagem();
-        exibeImagem(imagemUtilizada);
+        //exibeImagem(imagemUtilizada);
         imagemUtilizada = binarizacao(imagemUtilizada, 15);
-        exibeImagem(imagemUtilizada);
+        //exibeImagem(imagemUtilizada);
         int rgb = buscaCorIntParede(imagemUtilizada);
         boolean corParede = ehCorCorretaParede(imagemUtilizada, rgb);
     }
@@ -43,15 +43,6 @@ public class Main {
             if (opcaoSelecionado == 1) {
                 try {
                     imagemUtilizada = insereImagem();
-                }
-                catch (Exception e) {
-                    deuFalha = true;
-                    System.out.println(e.toString());
-                }
-            }
-            if (opcaoSelecionado == 2) {
-                try {
-                    esclareceImagem(imagemUtilizada);
                 }
                 catch (Exception e) {
                     deuFalha = true;
