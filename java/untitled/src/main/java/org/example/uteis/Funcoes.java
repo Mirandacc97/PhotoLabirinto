@@ -95,9 +95,13 @@ public class Funcoes {
           listaPixels.set(indice, pixelPrincipal);//primeiropixel da esquerda em cima
 
           ehPecorreEsquerda(img, listaPixels, indice, altura, pixel);
-          ehPecorrecima(img,listaPixels,indice,width,pixel);
-
+          Pixel esquerda = listaPixels.get(indice);
           ehPecorrebaixo(img,listaPixels,indice,width,pixel);
+
+          
+
+          ehPecorrecima(img,listaPixels,indice,width,pixel);
+          Pixel cima = listaPixels.get(indice);
           ehPecorreDireita(img,listaPixels,indice,altura,pixel);
         }
         }
