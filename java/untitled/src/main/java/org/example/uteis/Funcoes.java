@@ -92,13 +92,13 @@ public class Funcoes {
         if (listaPixels.contains(pixel)) {
           Pixel pixelPrincipal = listaPixels.get(indice);
           pixelPrincipal.setehprimeiropixel(true);
-          listaPixels.set(indice, pixelPrincipal);//primeiropixel da esquerda em cima
+          listaPixels.set(indice, pixelPrincipal);//primeiro pixel da esquerda em cima
 
           ehPecorreEsquerda(img, listaPixels, indice, altura, pixel);
           Pixel esquerda = listaPixels.get(indice);
           ehPecorrebaixo(img,listaPixels,indice,width,pixel);
 
-          
+
 
           ehPecorrecima(img,listaPixels,indice,width,pixel);
           Pixel cima = listaPixels.get(indice);
@@ -160,13 +160,28 @@ public class Funcoes {
       }
     return null;
   }
-  private static List<Pixel> ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
-    for(int novowidth = width; novowidth< img.getWidth(); ++width){
+  private static List<Pixel> ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width,int altura, Pixel pixel) {
+    for(int novowidth = width; novowidth< img.getWidth(); ++width) {
+      if (!listaPixels.contains(pixel)) {
+        Pixel pixelASerAlterado = listaPixels.get(indice);
+        pixelASerAlterado.setEhParedeentrada(true);
+        listaPixels.set(indice, pixelASerAlterado);
+        for (int width1 = width; width1 < img.getWidth(); ++width1) {
+          if (listaPixels.contains(pixel)) {
+            Pixel pixelASerAlterado2 = listaPixels.get(indice);
+            pixelASerAlterado.setehpixelEntradaFinal(true);
+            listaPixels.set(indice, pixelASerAlterado2);
+          }
+          indice++;
+        }
+      }
+    }
+    for(int alturadireita = altura;alturadireita < img.getWidth(); ++alturadireita){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
         pixelASerAlterado.setEhParedeentrada(true);
         listaPixels.set(indice, pixelASerAlterado);
-        for(int width1 = width; width1< img.getWidth(); ++width1) {
+        for(int alturaDireitaAchou = width; alturaDireitaAchou< img.getWidth(); ++alturaDireitaAchou) {
           if(listaPixels.contains(pixel)){
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
             pixelASerAlterado2.setehpixelEntradaFinal(true);
