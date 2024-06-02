@@ -117,6 +117,7 @@ public class Funcoes {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
             pixelASerAlterado.setehpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
+            return listaPixels;
           }
           indice++;
         }
@@ -124,9 +125,10 @@ public class Funcoes {
         Pixel pixelASerAlterado = listaPixels.get(indice);
         pixelASerAlterado.setehultimoPixelcima(true);
         listaPixels.set(indice, pixelASerAlterado);
+        return listaPixels;
       }
     }
-    return listaPixels;
+    return null;
   }
 
   private static List<Pixel> ehPecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
@@ -140,6 +142,7 @@ public class Funcoes {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
             pixelASerAlterado2.setehpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
+            return listaPixels;
           }
           indice++;
         }
@@ -148,9 +151,10 @@ public class Funcoes {
         Pixel pixelASerAlterado = listaPixels.get(indice);
         pixelASerAlterado.setehultimoPixelesquerda(true);
         listaPixels.set(indice, pixelASerAlterado);
+        return listaPixels;
       }
       }
-    return listaPixels;
+    return null;
   }
   private static List<Pixel> ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
     for(int novowidth = width; novowidth< img.getWidth(); ++width){
@@ -163,12 +167,14 @@ public class Funcoes {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
             pixelASerAlterado2.setehpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
+            return listaPixels;
+
           }
           indice++;
         }
       }
     }
-    return listaPixels;
+    return null;
   }
   private static List<Pixel> ehPecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice,int altura, Pixel pixel) {
     for(int altura1 = altura; altura1< img.getWidth(); ++altura1){
@@ -181,12 +187,13 @@ public class Funcoes {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
             pixelASerAlterado2.setehpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
+            return listaPixels;
           }
           indice++;
         }
       }
     }
-    return listaPixels;
+    return null;
   }
   public static BufferedImage geraImagemAPartirDeLista(List<Pixel> lista, BufferedImage img) {
 
