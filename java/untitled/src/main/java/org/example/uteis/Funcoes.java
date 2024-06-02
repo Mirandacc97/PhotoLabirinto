@@ -106,7 +106,7 @@ public class Funcoes {
     return listaPixels;
   }
 
-  private static Pixel ehPecorrecima(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
+  private static List<Pixel> ehPecorrecima(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
     for(int novowidth = width; novowidth< img.getWidth(); ++width){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -125,12 +125,11 @@ public class Funcoes {
         pixelASerAlterado.setehultimoPixelcima(true);
         listaPixels.set(indice, pixelASerAlterado);
       }
-      pixel = listaPixels.get(indice);
     }
-    return pixel;
+    return listaPixels;
   }
 
-  private static Pixel ehPecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
+  private static List<Pixel> ehPecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
     for(int altura1 = altura; altura1< img.getWidth(); ++altura1){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -150,11 +149,10 @@ public class Funcoes {
         pixelASerAlterado.setehultimoPixelesquerda(true);
         listaPixels.set(indice, pixelASerAlterado);
       }
-      pixel = listaPixels.get(indice);
       }
-    return pixel;
+    return listaPixels;
   }
-  private static Pixel ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
+  private static List<Pixel> ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
     for(int novowidth = width; novowidth< img.getWidth(); ++width){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -169,11 +167,10 @@ public class Funcoes {
           indice++;
         }
       }
-      pixel = listaPixels.get(indice);
     }
-    return pixel;
+    return listaPixels;
   }
-  private static Pixel ehPecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice,int altura, Pixel pixel) {
+  private static List<Pixel> ehPecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice,int altura, Pixel pixel) {
     for(int altura1 = altura; altura1< img.getWidth(); ++altura1){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -188,9 +185,8 @@ public class Funcoes {
           indice++;
         }
       }
-      pixel = listaPixels.get(indice);
     }
-    return pixel;
+    return listaPixels;
   }
   public static BufferedImage geraImagemAPartirDeLista(List<Pixel> lista, BufferedImage img) {
 
