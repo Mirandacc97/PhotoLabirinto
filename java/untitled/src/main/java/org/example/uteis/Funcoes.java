@@ -1,11 +1,15 @@
 package org.example.uteis;
 
+import org.example.objeto.Pixel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Funcoes {
 
@@ -31,94 +35,118 @@ public class Funcoes {
   }
 
   public static BufferedImage binarizacao(BufferedImage imgEntrada, int limiar) {
-    int largura = imgEntrada.getWidth();
-    int altura = imgEntrada.getHeight();
-    BufferedImage imgSaida = new BufferedImage(largura, altura, imgEntrada.getType());
-
-    for(int height = 0; height < altura; ++height) {
-      for(int width = 0; width < largura; ++width) {
-        int rgb = imgEntrada.getRGB(width, height);
+    BufferedImage imgSaida = new BufferedImage(imgEntrada.getWidth(), imgEntrada.getHeight(), imgEntrada.getType());
+    for(int altura = 0; altura < imgEntrada.getHeight(); ++altura) {
+      for(int largura = 0; largura < imgEntrada.getWidth(); ++largura) {
+        int rgb = imgEntrada.getRGB(largura, altura);
         Color cor = new Color(rgb);
         int media = (cor.getRed() + cor.getGreen() + cor.getBlue()) / 3;
         int novoValor = media > limiar ? 255 : 0;
         Color novaCor = new Color(novoValor, novoValor, novoValor);
-        imgSaida.setRGB(width, height, novaCor.getRGB());
+        imgSaida.setRGB(largura, altura, novaCor.getRGB());
       }
     }
     return imgSaida;
   }
 
-  public static int buscaCorIntParede(BufferedImage img) {
+  public static int buscaCorParede(BufferedImage img) {
     int corUm = 0;
     int corDois = 0;
-    for(int height = 0; height < img.getHeight(); ++height) {
-      if (possuiPixelsDiferentesNaLinha(img, 1)) {
-        for(int width = 0; width < img.getWidth(); ++width) {
-          if (width == 0)
-            corUm = img.getRGB(width, height);
-          else {
-            if (corUm != img.getRGB(width, height)) {
-              corDois = img.getRGB(width, height);
-              break;
-            }
+    int height = 0;
+    int largura = 0;
+    for(height = 0; height < img.getHeight(); ++height) {
+      for (largura = 0; largura < img.getWidth(); ++largura) {
+        if (largura == 0)
+          corUm = img.getRGB(largura, height);
+        else {
+          if (corUm != img.getRGB(largura, height)) {
+            corDois = img.getRGB(largura, height);
+            break;
           }
         }
       }
     }
-
-    mostraCor(img, corUm);
-
     return corDois;
   }
 
-  private static boolean possuiPixelsDiferentesNaLinha(BufferedImage img, int altura) {
-    for(int width = 1; width < img.getWidth(); ++width) {
-      if (img.getRGB((width - 1), altura) != img.getRGB(width, altura))
-        return true;
-    }
-    return false;
-  }
-
-  public static boolean ehCorCorretaParede(BufferedImage img, int corRgb) {
-    int quantidadePixelsNormais = 0;
-    int quantidadePixelsVerdes = 0;
+  public static BufferedImage ehCorCorretaParede(BufferedImage img, int corRgb) {
     BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
     for(int height = 0; height < img.getHeight(); ++height) {
       for(int width = 0; width < img.getWidth(); ++width) {
-        if (corRgb == img.getRGB(width, height)) {
+        if (corRgb == img.getRGB(width, height))
+          imgSaida.setRGB(width, height, new Color(75, 100, 44).getRGB());
+        else
           imgSaida.setRGB(width, height, img.getRGB(width, height));
-          quantidadePixelsNormais += 1;
-        }
-        else {
-          imgSaida.setRGB(width, height, new Color(75, 100, 44).getRGB());//img.getRGB(width, height));
-          quantidadePixelsVerdes += 1;
-        }
       }
     }
-    System.out.println(" Quantidade de pixels normais - " + quantidadePixelsNormais);
-    System.out.println(" Quantidade de pixels verdes - " + quantidadePixelsVerdes);
-    exibeImagem(imgSaida);
-    return false;
+    return imgSaida;
   }
 
-  public static int pegaAlturaImagem(BufferedImage img) {
-    return img.getWidth();
-  }
-  public static int pegaComprimentoImagem(BufferedImage img) {
-    return img.getHeight();
-  }
+  public static List<Pixel> procuraEntradaLabirinto(BufferedImage img, List<Pixel> listaPixels) {
 
-  private static void mostraCor(BufferedImage img, int cor) {
-    int largura = img.getWidth();
-    int altura = img.getHeight();
-    BufferedImage imgSaida = new BufferedImage(largura, altura, img.getType());
+    List<Pixel> retorno = new ArrayList<Pixel>();
 
-    for(int height = 0; height < img.getHeight(); ++height) {
-      for(int width = 0; width < img.getWidth(); ++width) {
-        imgSaida.setRGB(width, height, cor);//img.getRGB(width, height));
+    int indice = 0;
+    for(int altura = 0; altura <= img.getHeight(); ++altura) {
+      for(int width = 0; width <= img.getWidth(); ++width) {
+        Pixel pixel = new Pixel();
+        pixel.setWidth(width);
+        pixel.setHeight(altura);
+        if (listaPixels.contains(pixel)) {
+          Pixel pixelASerAlterado = listaPixels.get(indice);
+          pixelASerAlterado.setEhParede(true);
+          listaPixels.set(indice, pixelASerAlterado);
+        }
+        indice += 1;
       }
     }
-    exibeImagem(imgSaida);
+
+    return null;
   }
 
+  public static BufferedImage geraImagemAPartirDeLista(List<Pixel> lista, BufferedImage img) {
+
+    BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+    int indice = 0;
+    for(int altura = 0; altura < img.getHeight(); ++altura) {
+      for(int largura = 0; largura < img.getWidth(); ++largura) {
+        imgSaida.setRGB(largura, altura, lista.get(indice).getRgb());
+        indice += 1;
+      }
+    }
+
+    return imgSaida;
+  }
+
+  public static List<Pixel> alimentaListaPixels(BufferedImage img) {
+    List<Pixel> listaPixels = new ArrayList<Pixel>();
+    for(int altura = 0; altura < img.getHeight(); ++altura) {
+      for(int largura = 0; largura < img.getWidth(); ++largura) {
+        Pixel pixel = new Pixel();
+        pixel.setWidth(largura);
+        pixel.setHeight(altura);
+        pixel.setRgb(img.getRGB(largura, altura));
+        listaPixels.add(pixel);
+      }
+    }
+    return listaPixels;
+  }
+
+  public static List<Pixel> definePixelsParede(List<Pixel> listaPixels, BufferedImage img) {
+    int indice = 0;
+    for(int altura = 0; altura < img.getHeight(); ++altura) {
+      for(int largura = 0; largura < img.getWidth(); ++largura) {
+        Pixel pixel = new Pixel();
+        pixel.setWidth(largura);
+        pixel.setHeight(altura);
+        if (listaPixels.contains(pixel)) {
+          Pixel pixelASerAlterado = listaPixels.get(indice);
+          pixelASerAlterado.setEhParede(true);
+          listaPixels.set(indice, pixelASerAlterado);
+        }
+        indice += 1;
+      }
+    }
+    return listaPixels;
+  }
 }

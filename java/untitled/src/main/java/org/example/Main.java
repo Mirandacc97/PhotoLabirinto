@@ -1,8 +1,11 @@
 package org.example;
 
 import org.example.menu.Menu;
+import org.example.objeto.Pixel;
+import org.example.uteis.Funcoes;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.example.uteis.Funcoes.*;
@@ -16,8 +19,27 @@ public class Main {
         //exibeImagem(imagemUtilizada);
         imagemUtilizada = binarizacao(imagemUtilizada, 15);
         //exibeImagem(imagemUtilizada);
-        int rgb = buscaCorIntParede(imagemUtilizada);
-        boolean corParede = ehCorCorretaParede(imagemUtilizada, rgb);
+        int rbgParede = buscaCorParede(imagemUtilizada);
+
+        BufferedImage imagemComCorParede = null;
+        imagemComCorParede = ehCorCorretaParede(imagemUtilizada, rbgParede);
+        //exibeImagem(imagemComCorParede);
+        Scanner teclado = new Scanner(System.in);
+        System.out.println(
+                new StringBuilder()
+                    .append("Os pixels em verde correspondem a uma parede?")
+                    .append("1 - Sim")
+                    .append("2 - Não")
+                    .toString()
+                + teclado.nextLine());
+
+        if (teclado.nextInt() == 1) {
+            List<Pixel> listaPixels = Funcoes.alimentaListaPixels(imagemUtilizada);
+            listaPixels = Funcoes.definePixelsParede(listaPixels, imagemUtilizada);
+            exibeImagem(geraImagemAPartirDeLista(listaPixels, imagemUtilizada));
+            //List<Pixel> pixelsParede = procuraEntradaLabirinto(imagemUtilizada);
+        }
+
     }
 
     private static void verificaSeDeuFalha(boolean deuFalha) {
