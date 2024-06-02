@@ -5,11 +5,11 @@ public class Pixel {
   private int height;
   private int rgb;
   boolean ehParede;
-  boolean ehultimoPixelcima;
   boolean ehprimeiropixel;
   boolean ehparedeentrada;
   boolean ehCaminhoLabirinto;
   boolean ehultimoPixelesquerda;
+  boolean ehultimoPixelcima;
   boolean ehpixelEntradaFinal;
 
   public int getWidth() {
