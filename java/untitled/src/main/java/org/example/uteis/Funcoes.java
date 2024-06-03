@@ -97,7 +97,7 @@ public class Funcoes {
             List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img);
             if (pixelsDaEntrada.size()%2 != 0)
               pixelsDaEntrada = new ArrayList<Pixel>();
-            pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
+              pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
 
 
 
@@ -113,10 +113,21 @@ public class Funcoes {
             pecorreEsquerda(img, listaPixels, indice, altura, pixel);
             Pixel esquerda = listaPixels.get(indice);
             pecorreBaixo(img,listaPixels,indice,comprimento,altura,pixel);
-
+            Pixel baixo = listaPixels.get(indice);
             pecorreCima(img,listaPixels,indice,comprimento,pixel);
             Pixel cima = listaPixels.get(indice);
             pecorreDireita(img,listaPixels,indice,altura,comprimento,pixel);
+            Pixel direita = listaPixels.get(indice);
+
+            if(esquerda != null){
+              break;
+            } else if (baixo != null) {
+              break;
+            } else if (direita != null) {
+              break;
+            } else if (cima != null) {
+              break;
+            }
           }
         }
         indice++;
