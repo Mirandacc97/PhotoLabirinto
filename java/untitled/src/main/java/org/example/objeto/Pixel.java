@@ -5,11 +5,11 @@ public class Pixel {
   private int height;
   private int rgb;
   boolean ehParede;
-  boolean ehprimeiropixel;
-  boolean ehparedeentrada;
+  boolean ehPrimeiroPixel;
+  boolean ehParedeEntrada;
   boolean ehCaminhoLabirinto;
-  boolean ehultimoPixelesquerda;
-  boolean ehultimoPixelcima;
+  boolean ehUltimoPixelEsquerda;
+  boolean ehUltimoPixelCima;
   boolean ehpixelEntradaFinal;
 
   public int getWidth() {
@@ -45,28 +45,29 @@ public class Pixel {
   }
 
   public boolean ehultimoPixelcima() {
-    return ehultimoPixelcima;
+    return ehUltimoPixelCima;
   }
 
   public void setehultimoPixelcima(boolean ehultimoPixelcima) {
-    this.ehultimoPixelcima = ehultimoPixelcima;
+    this.ehUltimoPixelCima = ehultimoPixelcima;
   }
   public boolean isEhParedeentrada() {
-    return ehparedeentrada;
+    return ehParedeEntrada;
   }
 
   public void setEhParedeentrada(boolean ehParede) {
-    this.ehparedeentrada = ehparedeentrada;
+    this.ehParedeEntrada = ehParedeEntrada;
   }
   public boolean ehprimeiropixel() {
-    return ehprimeiropixel;
+    return ehPrimeiroPixel;
   }
 
   public void setehultimoPixelesquerda(boolean ehultimoPixelesquerda) {
-    this.ehultimoPixelesquerda= ehultimoPixelesquerda;
+    this.ehUltimoPixelEsquerda = ehultimoPixelesquerda;
   }
+  
   public boolean ehultimoPixelesquerda() {
-    return ehultimoPixelesquerda;
+    return ehUltimoPixelEsquerda;
   }
   public boolean isEhCaminhoLabirinto() {
     return ehCaminhoLabirinto;
@@ -77,7 +78,7 @@ public class Pixel {
   }
 
   public void setehprimeiropixel(boolean ehParede) {
-    this.ehprimeiropixel= ehprimeiropixel;
+    this.ehPrimeiroPixel = ehPrimeiroPixel;
   }
 
   public void setehpixelEntradaFinal(boolean ehpixelEntradaFinal) {

@@ -10,8 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Funcoes {
+
+  private static final int corVerdeMarcadora = new Color(75, 100, 44).getRGB();
 
   public static BufferedImage insereImagem() {
     try {
@@ -74,7 +77,7 @@ public class Funcoes {
     for(int height = 0; height < img.getHeight(); ++height) {
       for(int width = 0; width < img.getWidth(); ++width) {
         if (corRgb == img.getRGB(width, height))
-          imgSaida.setRGB(width, height, new Color(75, 100, 44).getRGB());
+          imgSaida.setRGB(width, height, corVerdeMarcadora);
         else
           imgSaida.setRGB(width, height, img.getRGB(width, height));
       }
@@ -82,35 +85,45 @@ public class Funcoes {
     return imgSaida;
   }
 
-  public static List<Pixel> procuraEntradaLabirinto(BufferedImage img, List<Pixel> listaPixels) {
+  public static List<Pixel> procuraEntradaLabirinto(BufferedImage img, List<Pixel> listaPixels) throws Exception {
     int indice = 0;
     for(int altura = 0; altura <= img.getHeight(); ++altura) {
-      for(int width = 0; width <= img.getWidth(); ++width) {
-        Pixel pixel = new Pixel();
-        pixel.setWidth(width);
-        pixel.setHeight(altura);
-        if (listaPixels.contains(pixel)) {
-          Pixel pixelPrincipal = listaPixels.get(indice);
-          pixelPrincipal.setehprimeiropixel(true);
-          listaPixels.set(indice, pixelPrincipal);//primeiro pixel da esquerda em cima
+      for(int comprimento = 0; comprimento <= img.getWidth(); ++comprimento) {
+        for (int i = 0; i < listaPixels.size(); i++) {
+          if (listaPixels.get(i).getWidth() == comprimento
+                  && listaPixels.get(i).getHeight() == altura
+                  && listaPixels.get(i).isEhParede()) {
 
-          ehPecorreEsquerda(img, listaPixels, indice, altura, pixel);
-          Pixel esquerda = listaPixels.get(indice);
-          ehPecorrebaixo(img,listaPixels,indice,width,altura,pixel);
+            List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img.getHeight());
+            List<Pixel> pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img.getWidth());
+            if (pixelsDaEntrada.size()%2 > 0)
+              throw new Exception("Não encontrei");
 
+            //pecorreEsquerda(img, listaPixels, indice, altura, pixel);
+            Pixel pixel = new Pixel();
+            pixel.setWidth(comprimento);
+            pixel.setHeight(altura);
 
+            Pixel pixelPrincipal = listaPixels.get(indice);
+            pixelPrincipal.setehprimeiropixel(true);
+            listaPixels.set(indice, pixelPrincipal);//primeiro pixel da esquerda em cima
 
-          ehPecorrecima(img,listaPixels,indice,width,pixel);
-          Pixel cima = listaPixels.get(indice);
-          ehPecorreDireita(img,listaPixels,indice,altura,width,pixel);
+            pecorreEsquerda(img, listaPixels, indice, altura, pixel);
+            Pixel esquerda = listaPixels.get(indice);
+            pecorreBaixo(img,listaPixels,indice,comprimento,altura,pixel);
+
+            pecorreCima(img,listaPixels,indice,comprimento,pixel);
+            Pixel cima = listaPixels.get(indice);
+            pecorreDireita(img,listaPixels,indice,altura,comprimento,pixel);
+          }
         }
-        }
-
+        indice++;
       }
+    }
     return listaPixels;
   }
 
-  private static List<Pixel> ehPecorrecima(BufferedImage img, List<Pixel> listaPixels, int indice,int width, Pixel pixel) {
+  private static List<Pixel> pecorreCima(BufferedImage img, List<Pixel> listaPixels, int indice, int width, Pixel pixel) {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -130,7 +143,7 @@ public class Funcoes {
     return null;
   }
 
-  private static List<Pixel> ehPecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
+  private static List<Pixel> pecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
     for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -149,7 +162,24 @@ public class Funcoes {
       }
     return null;
   }
-  private static List<Pixel> ehPecorrebaixo(BufferedImage img, List<Pixel> listaPixels, int indice,int width,int altura, Pixel pixel) {
+
+  private static List<Pixel> percorreEmComprimento(List<Pixel> listaPixels, int indice, int altura, int alturaImagem) {
+    List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
+    int posicaoFinalLinha = (listaPixels.size() / alturaImagem)*(altura+1);
+    for(int j = indice; j < posicaoFinalLinha; j++){
+      if (!listaPixels.get(j).isEhParede()) {
+        retornaPixelInicialEFinal.add(listaPixels.get(j));
+        for(int k = (j+1); k < posicaoFinalLinha; k++){
+          if (listaPixels.get(k).isEhParede())
+            retornaPixelInicialEFinal.add(listaPixels.get(k-1));
+        }
+      }
+    }
+
+    return retornaPixelInicialEFinal;
+  }
+
+  private static List<Pixel> pecorreBaixo(BufferedImage img, List<Pixel> listaPixels, int indice, int width, int altura, Pixel pixel) {
     for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -177,7 +207,6 @@ public class Funcoes {
               pixelASerAlterado2.setehpixelEntradaFinal(true);
               listaPixels.set(indice, pixelASerAlterado2);
               return listaPixels;
-
             }
             indice++;
           }
@@ -185,7 +214,7 @@ public class Funcoes {
       }
     return null;
   }
-  private static List<Pixel> ehPecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice,int altura,int width, Pixel pixel) {
+  private static List<Pixel> pecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, int width, Pixel pixel) {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
         Pixel pixelASerAlterado = listaPixels.get(indice);
@@ -234,7 +263,7 @@ public class Funcoes {
     return imgSaida;
   }
 
-  public static List<Pixel> alimentaListaPixels(BufferedImage img) {
+  public static List<Pixel> geraListaAPartirDaImagem(BufferedImage img) {
     List<Pixel> listaPixels = new ArrayList<Pixel>();
     for(int altura = 0; altura < img.getHeight(); ++altura) {
       for(int largura = 0; largura < img.getWidth(); ++largura) {
@@ -248,21 +277,27 @@ public class Funcoes {
     return listaPixels;
   }
 
-  public static List<Pixel> definePixelsParede(List<Pixel> listaPixels, BufferedImage img) {
-    int indice = 0;
-    for(int altura = 0; altura < img.getHeight(); ++altura) {
-      for(int largura = 0; largura < img.getWidth(); ++largura) {
-        Pixel pixel = new Pixel();
-        pixel.setWidth(largura);
-        pixel.setHeight(altura);
-        if (listaPixels.contains(pixel)) {
-          Pixel pixelASerAlterado = listaPixels.get(indice);
-          pixelASerAlterado.setEhParede(true);
-          listaPixels.set(indice, pixelASerAlterado);
-        }
-        indice += 1;
+  public static List<Pixel> definePixelsParede(List<Pixel> listaPixels, int rgbParede) {
+    for (int i=0; i < listaPixels.size(); i++)
+      if (listaPixels.get(i).getRgb() == rgbParede) {
+        Pixel pixelParaSerParede = listaPixels.get(i);
+        pixelParaSerParede.setEhParede(true);
+        listaPixels.set(i, pixelParaSerParede);
       }
-    }
     return listaPixels;
   }
+
+  public static void perguntaSeEhParede(int rbgParede, BufferedImage imagemUtilizada) {
+    BufferedImage imagemComCorParede = null;
+    imagemComCorParede = ehCorCorretaParede(imagemUtilizada, rbgParede);
+    Scanner teclado = new Scanner(System.in);
+    System.out.println(
+            new StringBuilder()
+                    .append("Os pixels em verde correspondem a uma parede?")
+                    .append("1 - Sim")
+                    .append("2 - Não")
+                    .toString()
+                    + teclado.nextLine());
+  }
+
 }
