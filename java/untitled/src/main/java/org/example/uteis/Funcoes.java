@@ -94,10 +94,12 @@ public class Funcoes {
                   && listaPixels.get(i).getHeight() == altura
                   && listaPixels.get(i).isEhParede()) {
 
-            List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img.getHeight());
-            List<Pixel> pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img.getWidth());
-            if (pixelsDaEntrada.size()%2 > 0)
-              throw new Exception("Não encontrei");
+            List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img);
+            if (pixelsDaEntrada.size()%2 != 0)
+              pixelsDaEntrada = new ArrayList<Pixel>();
+            pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
+
+
 
             //pecorreEsquerda(img, listaPixels, indice, altura, pixel);
             Pixel pixel = new Pixel();
@@ -163,9 +165,9 @@ public class Funcoes {
     return null;
   }
 
-  private static List<Pixel> percorreEmComprimento(List<Pixel> listaPixels, int indice, int altura, int alturaImagem) {
+  private static List<Pixel> percorreEmComprimento(List<Pixel> listaPixels, int indice, int altura, BufferedImage img) {
     List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
-    int posicaoFinalLinha = (listaPixels.size() / alturaImagem)*(altura+1);
+    int posicaoFinalLinha = (listaPixels.size() / img.getHeight())*(altura+1);
     for(int j = indice; j < posicaoFinalLinha; j++){
       if (!listaPixels.get(j).isEhParede()) {
         retornaPixelInicialEFinal.add(listaPixels.get(j));
@@ -174,6 +176,29 @@ public class Funcoes {
             retornaPixelInicialEFinal.add(listaPixels.get(k-1));
         }
       }
+    }
+
+    return retornaPixelInicialEFinal;
+  }
+
+  private static List<Pixel> percorreEmAltura(List<Pixel> listaPixels, int indice, int comprimento, BufferedImage img) {
+    List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
+    int qtdePixelsPorLinha = listaPixels.size() / img.getHeight();
+    int colunaCorrente = indice;
+    while (indice <= listaPixels.size()) {
+      if (!listaPixels.get(indice).isEhParede()) {
+        retornaPixelInicialEFinal.add(listaPixels.get(indice));
+        indice += qtdePixelsPorLinha;
+        while (indice <= listaPixels.size()){
+          if (listaPixels.get(indice).isEhParede()) {
+            retornaPixelInicialEFinal.add(listaPixels.get(indice));
+            break;
+          }
+          indice += qtdePixelsPorLinha;
+        }
+        break;
+      }
+      indice += qtdePixelsPorLinha;
     }
 
     return retornaPixelInicialEFinal;

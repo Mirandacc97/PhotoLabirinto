@@ -13,7 +13,7 @@ public class Main {
 
     private static BufferedImage imagemUtilizada = null;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         imagemUtilizada = insereImagem();
         imagemUtilizada = binarizacao(imagemUtilizada, 15);
         int rbgParede = buscaCorParede(imagemUtilizada);
