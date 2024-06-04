@@ -96,7 +96,7 @@ public class Funcoes {
                   && listaPixels.get(i).isEhParede()) {
 
             List<Pixel> pixelsDaEntrada = new ArrayList<Pixel>();
-            pixelsDaEntrada.addAll(Objects.requireNonNull(percorreEmComprimento(listaPixels, indice, altura, img)));
+            pixelsDaEntrada.addAll (Objects.requireNonNull(percorreEmComprimento(listaPixels, indice, altura, img)));
             pixelsDaEntrada.addAll(Objects.requireNonNull(percorreEmAltura(listaPixels, indice, img)));
 
             marcaEntrada(pixelsDaEntrada, listaPixels, img);
@@ -179,18 +179,18 @@ public class Funcoes {
   private static List<Pixel> percorreEmComprimento(List<Pixel> listaPixels, int indice, int altura, BufferedImage img) {
     List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
     int posicaoFinalLinha = (listaPixels.size() / img.getHeight())*(altura+1);
-    for(int j = indice; j < posicaoFinalLinha; j++){
+    for(int j = indice; j < posicaoFinalLinha; j++) {
       if (!listaPixels.get(j).isEhParede()) {
         retornaPixelInicialEFinal.add(listaPixels.get(j));
-        for(int k = (j+1); k < posicaoFinalLinha; k++){
+        for (int k = (j + 1); k < posicaoFinalLinha; k++) {
           if (listaPixels.get(k).isEhParede()) {
-            retornaPixelInicialEFinal.add(listaPixels.get(k-1));
+            retornaPixelInicialEFinal.add(listaPixels.get(k - 1));
             return retornaPixelInicialEFinal;
           }
         }
       }
     }
-    return null;
+      return new ArrayList<>();
   }
 
   private static List<Pixel> percorreEmAltura(List<Pixel> listaPixels, int indice, BufferedImage img) {
@@ -210,7 +210,7 @@ public class Funcoes {
         break;
       }
     }
-    return null;
+    return new ArrayList<>();
   }
 
   private static List<Pixel> pecorreBaixo(BufferedImage img, List<Pixel> listaPixels, int indice, int width, int altura, Pixel pixel) {
