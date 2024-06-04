@@ -97,7 +97,7 @@ public class Funcoes {
 
             List<Pixel> pixelsDaEntrada = new ArrayList<Pixel>();
             pixelsDaEntrada.addAll(Objects.requireNonNull(percorreEmComprimento(listaPixels, indice, altura, img)));
-            pixelsDaEntrada.addAll(percorreEmAltura(listaPixels, indice, img));
+            pixelsDaEntrada.addAll(Objects.requireNonNull(percorreEmAltura(listaPixels, indice, img)));
 
             marcaEntrada(pixelsDaEntrada, listaPixels, img);
 
