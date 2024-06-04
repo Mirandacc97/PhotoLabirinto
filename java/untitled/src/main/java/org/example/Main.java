@@ -24,6 +24,10 @@ public class Main {
         listaPixels = Funcoes.definePixelsParede(listaPixels, rbgParede);
         exibeImagem(geraImagemAPartirDeLista(listaPixels, imagemUtilizada));
         listaPixels = procuraEntradaLabirinto(imagemUtilizada, listaPixels);
+
+        Pixel[][] matrizPixels = Funcoes.geraMatrizAPartirDaImagem(imagemUtilizada);
+        exibeImagem(geraImagemAPartirDeMatriz(matrizPixels, imagemUtilizada));
+
     }
 
 }

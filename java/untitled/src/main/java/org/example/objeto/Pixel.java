@@ -10,7 +10,7 @@ public class Pixel {
   boolean ehCaminhoLabirinto;
   boolean ehUltimoPixelEsquerda;
   boolean ehUltimoPixelCima;
-  boolean ehpixelEntradaFinal;
+  boolean ehpixelEntrada;
 
   public int getWidth() {
     return width;
@@ -82,7 +82,7 @@ public class Pixel {
   }
 
   public void setehpixelEntradaFinal(boolean ehpixelEntradaFinal) {
-    this.ehpixelEntradaFinal = ehpixelEntradaFinal;
+    this.ehpixelEntrada = ehpixelEntradaFinal;
   }
 
   public boolean ehpixelEntradaFinal() {

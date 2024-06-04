@@ -97,9 +97,9 @@ public class Funcoes {
             List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img);
             if (pixelsDaEntrada.size()%2 != 0)
               pixelsDaEntrada = new ArrayList<Pixel>();
-              pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
+            pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
 
-
+            marcaEntrada(pixelsDaEntrada, listaPixels, img);
 
             //pecorreEsquerda(img, listaPixels, indice, altura, pixel);
             Pixel pixel = new Pixel();
@@ -334,6 +334,48 @@ public class Funcoes {
                     .append("2 - Não")
                     .toString()
                     + teclado.nextLine());
+  }
+
+  private static void marcaEntrada(List<Pixel> pixelsDaEntrada, List<Pixel> listaPixels, BufferedImage img) {
+    Pixel[][] matrizDePixels = new Pixel[img.getWidth()][img.getHeight()];
+    for (int i = 0; i < img.getWidth(); i++) {
+      for (int j = 0; j < img.getHeight(); j++) {
+        Pixel pixelAGravar = new Pixel();
+        pixelAGravar.setHeight(j);
+        pixelAGravar.setWidth(i);
+        pixelAGravar.setRgb(img.getRGB(i, j));
+        for(Pixel px: pixelsDaEntrada) {
+          if (px.getWidth() == i && px.getHeight() == j)
+            pixelAGravar.ehpixelEntradaFinal();
+        }
+        matrizDePixels[i][j] = pixelAGravar;
+      }
+    }
+  }
+
+  public static BufferedImage geraImagemAPartirDeMatriz(Pixel[][] matrizDePixels, BufferedImage img) {
+    BufferedImage imgSaida = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+    for(int i = 0; i < img.getWidth(); ++i) {
+      for(int j = 0; j < img.getHeight(); ++j) {
+        Pixel pixelAtual = matrizDePixels[i][j];
+        imgSaida.setRGB(i, j, pixelAtual.getRgb());
+      }
+    }
+    return imgSaida;
+  }
+
+  public static Pixel[][] geraMatrizAPartirDaImagem(BufferedImage img) {
+    Pixel[][] matrizDePixels = new Pixel[img.getWidth()][img.getHeight()];
+    for(int i = 0; i < img.getWidth(); ++i) {
+      for(int j = 0; j < img.getHeight(); ++j) {
+        Pixel pixelAGravar = new Pixel();
+        pixelAGravar.setHeight(j);
+        pixelAGravar.setWidth(i);
+        pixelAGravar.setRgb(img.getRGB(i, j));
+        matrizDePixels[i][j] = pixelAGravar;
+      }
+    }
+    return matrizDePixels;
   }
 
 }
