@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Funcoes {
@@ -94,10 +95,9 @@ public class Funcoes {
                   && listaPixels.get(i).getHeight() == altura
                   && listaPixels.get(i).isEhParede()) {
 
-            List<Pixel> pixelsDaEntrada = percorreEmComprimento(listaPixels, indice, altura, img);
-            if (pixelsDaEntrada.size()%2 != 0)
-              pixelsDaEntrada = new ArrayList<Pixel>();
-            pixelsDaEntrada = percorreEmAltura(listaPixels, indice, comprimento, img);
+            List<Pixel> pixelsDaEntrada = new ArrayList<Pixel>();
+            pixelsDaEntrada.addAll(Objects.requireNonNull(percorreEmComprimento(listaPixels, indice, altura, img)));
+            pixelsDaEntrada.addAll(percorreEmAltura(listaPixels, indice, img));
 
             marcaEntrada(pixelsDaEntrada, listaPixels, img);
 
@@ -183,19 +183,19 @@ public class Funcoes {
       if (!listaPixels.get(j).isEhParede()) {
         retornaPixelInicialEFinal.add(listaPixels.get(j));
         for(int k = (j+1); k < posicaoFinalLinha; k++){
-          if (listaPixels.get(k).isEhParede())
+          if (listaPixels.get(k).isEhParede()) {
             retornaPixelInicialEFinal.add(listaPixels.get(k-1));
+            return retornaPixelInicialEFinal;
+          }
         }
       }
     }
-
-    return retornaPixelInicialEFinal;
+    return null;
   }
 
-  private static List<Pixel> percorreEmAltura(List<Pixel> listaPixels, int indice, int comprimento, BufferedImage img) {
+  private static List<Pixel> percorreEmAltura(List<Pixel> listaPixels, int indice, BufferedImage img) {
     List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
     int qtdePixelsPorLinha = listaPixels.size() / img.getHeight();
-    int colunaCorrente = indice;
     while (indice <= listaPixels.size()) {
       if (!listaPixels.get(indice).isEhParede()) {
         retornaPixelInicialEFinal.add(listaPixels.get(indice));
@@ -203,16 +203,14 @@ public class Funcoes {
         while (indice <= listaPixels.size()){
           if (listaPixels.get(indice).isEhParede()) {
             retornaPixelInicialEFinal.add(listaPixels.get(indice));
-            break;
+            return retornaPixelInicialEFinal;
           }
           indice += qtdePixelsPorLinha;
         }
         break;
       }
-      indice += qtdePixelsPorLinha;
     }
-
-    return retornaPixelInicialEFinal;
+    return null;
   }
 
   private static List<Pixel> pecorreBaixo(BufferedImage img, List<Pixel> listaPixels, int indice, int width, int altura, Pixel pixel) {
