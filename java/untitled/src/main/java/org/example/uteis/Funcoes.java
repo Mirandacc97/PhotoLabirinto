@@ -145,7 +145,7 @@ public class Funcoes {
         for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
           if (listaPixels.contains(pixel)) {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado.setehpixelEntradaFinal(true);
+            pixelASerAlterado.setEhpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
             return listaPixels;
           }
@@ -165,7 +165,7 @@ public class Funcoes {
         for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
           if(listaPixels.contains(pixel)){
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado2.setehpixelEntradaFinal(true);
+            pixelASerAlterado2. setEhpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
             return listaPixels;
           }
@@ -222,7 +222,7 @@ public class Funcoes {
         for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
           if(listaPixels.contains(pixel)){
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado2.setehpixelEntradaFinal(true);
+            pixelASerAlterado2.setEhpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
             return listaPixels;
           }
@@ -238,7 +238,7 @@ public class Funcoes {
           for (int widthAbaixoAchouEntrada = widthAbaixo; widthAbaixoAchouEntrada < img.getWidth(); ++widthAbaixoAchouEntrada) {
             if (listaPixels.contains(pixel)) {
               Pixel pixelASerAlterado2 = listaPixels.get(indice);
-              pixelASerAlterado2.setehpixelEntradaFinal(true);
+              pixelASerAlterado2. setEhpixelEntradaFinal(true);
               listaPixels.set(indice, pixelASerAlterado2);
               return listaPixels;
             }
@@ -257,7 +257,7 @@ public class Funcoes {
         for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
           if (listaPixels.contains(pixel)) {
             Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado.setehpixelEntradaFinal(true);
+            pixelASerAlterado. setEhpixelEntradaFinal(true);
             listaPixels.set(indice, pixelASerAlterado2);
             return listaPixels;
           }
@@ -273,7 +273,7 @@ public class Funcoes {
             for (int alturadireitaAchouEntrada = alturadireita; alturadireitaAchouEntrada < img.getWidth(); ++alturadireitaAchouEntrada) {
               if (listaPixels.contains(pixel)) {
                 Pixel pixelASerAlterado2 = listaPixels.get(indice);
-                pixelASerAlterado2.setehpixelEntradaFinal(true);
+                pixelASerAlterado2.setEhpixelEntradaFinal(true);
                 listaPixels.set(indice, pixelASerAlterado2);
                 return listaPixels;
               }
@@ -344,7 +344,7 @@ public class Funcoes {
         pixelAGravar.setRgb(img.getRGB(i, j));
         for(Pixel px: pixelsDaEntrada) {
           if (px.getWidth() == i && px.getHeight() == j)
-            pixelAGravar.ehpixelEntradaFinal();
+            pixelAGravar.isEhpixelEntradaFinal();
         }
         matrizDePixels[i][j] = pixelAGravar;
       }

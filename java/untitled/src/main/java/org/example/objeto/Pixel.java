@@ -12,6 +12,8 @@ public class Pixel {
   boolean ehUltimoPixelCima;
   boolean ehpixelEntrada;
 
+  boolean ehpixelEntradaFinal;
+
   public int getWidth() {
     return width;
   }
@@ -81,12 +83,12 @@ public class Pixel {
     this.ehPrimeiroPixel = ehPrimeiroPixel;
   }
 
-  public void setehpixelEntradaFinal(boolean ehpixelEntradaFinal) {
-    this.ehpixelEntrada = ehpixelEntradaFinal;
+  public boolean isEhpixelEntradaFinal() {
+    return ehpixelEntradaFinal;
   }
 
-  public boolean ehpixelEntradaFinal() {
-    return ehpixelEntradaFinal();
+  public void setEhpixelEntradaFinal(boolean ehpixelEntradaFinal) {
+    this.ehpixelEntradaFinal = ehpixelEntradaFinal;
   }
 }
 
