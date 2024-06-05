@@ -119,15 +119,15 @@ public class Funcoes {
             pecorreDireita(img,listaPixels,indice,altura,comprimento,pixel);
             Pixel direita = listaPixels.get(indice);
 
-            if(esquerda != null){
-              break;
-            } else if (baixo != null) {
-              break;
-            } else if (direita != null) {
-              break;
-            } else if (cima != null) {
-              break;
-            }
+//            if(esquerda != null){
+//              break;
+//            } else if (baixo != null) {
+//              break;
+//            } else if (direita != null) {
+//              break;
+//            } else if (cima != null) {
+//              break;
+//            }
           }
         }
         indice++;
