@@ -1,6 +1,7 @@
 package org.example.objeto;
 
 public class Pixel {
+
   private int width;
   private int height;
   private int rgb;
@@ -10,17 +11,10 @@ public class Pixel {
   boolean ehCaminhoLabirinto;
   boolean ehUltimoPixelEsquerda;
   boolean ehUltimoPixelCima;
+
   boolean ehpixelEntrada;
 
   boolean ehpixelEntradaFinal;
-
-  public int getWidth() {
-    return width;
-  }
-
-  public void setWidth(int width) {
-    this.width = width;
-  }
 
   public int getHeight() {
     return height;
@@ -38,6 +32,8 @@ public class Pixel {
     this.rgb = rgb;
   }
 
+
+
   public boolean isEhParede() {
     return ehParede;
   }
@@ -46,31 +42,31 @@ public class Pixel {
     this.ehParede = ehParede;
   }
 
-  public boolean ehultimoPixelcima() {
-    return ehUltimoPixelCima;
+  public int getWidth() {
+    return width;
   }
 
-  public void setehultimoPixelcima(boolean ehultimoPixelcima) {
-    this.ehUltimoPixelCima = ehultimoPixelcima;
+  public void setWidth(int width) {
+    this.width = width;
   }
-  public boolean isEhParedeentrada() {
-    return ehParedeEntrada;
-  }
-
-  public void setEhParedeentrada(boolean ehParede) {
-    this.ehParedeEntrada = ehParedeEntrada;
-  }
-  public boolean ehprimeiropixel() {
+  public boolean isEhPrimeiroPixel() {
     return ehPrimeiroPixel;
   }
 
-  public void setehultimoPixelesquerda(boolean ehultimoPixelesquerda) {
-    this.ehUltimoPixelEsquerda = ehultimoPixelesquerda;
+  public void setEhPrimeiroPixel(boolean ehPrimeiroPixel) {
+    this.ehPrimeiroPixel = ehPrimeiroPixel;
   }
-  
-  public boolean ehultimoPixelesquerda() {
-    return ehUltimoPixelEsquerda;
+
+
+  public boolean isEhParedeEntrada(boolean b) {
+    return ehParedeEntrada;
   }
+
+  public void setEhParedeEntrada(boolean ehParedeEntrada) {
+    this.ehParedeEntrada = ehParedeEntrada;
+  }
+
+
   public boolean isEhCaminhoLabirinto() {
     return ehCaminhoLabirinto;
   }
@@ -79,9 +75,33 @@ public class Pixel {
     this.ehCaminhoLabirinto = ehCaminhoLabirinto;
   }
 
-  public void setehprimeiropixel(boolean ehParede) {
-    this.ehPrimeiroPixel = ehPrimeiroPixel;
+
+  public boolean isEhUltimoPixelEsquerda() {
+    return ehUltimoPixelEsquerda;
   }
+
+  public void setEhUltimoPixelEsquerda(boolean ehUltimoPixelEsquerda) {
+    this.ehUltimoPixelEsquerda = ehUltimoPixelEsquerda;
+  }
+
+
+  public boolean isEhUltimoPixelCima() {
+    return ehUltimoPixelCima;
+  }
+
+  public void setEhUltimoPixelCima(boolean ehUltimoPixelCima) {
+    this.ehUltimoPixelCima = ehUltimoPixelCima;
+  }
+
+
+  public boolean isEhpixelEntrada() {
+    return ehpixelEntrada;
+  }
+
+  public void setEhpixelEntrada(boolean ehpixelEntrada) {
+    this.ehpixelEntrada = ehpixelEntrada;
+  }
+
 
   public boolean isEhpixelEntradaFinal() {
     return ehpixelEntradaFinal;

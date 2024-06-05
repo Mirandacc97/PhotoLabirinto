@@ -107,7 +107,7 @@ public class Funcoes {
             pixel.setHeight(altura);
 
             Pixel pixelPrincipal = listaPixels.get(indice);
-            pixelPrincipal.setehprimeiropixel(true);
+            pixelPrincipal.setEhPrimeiroPixel(true);
             listaPixels.set(indice, pixelPrincipal);//primeiro pixel da esquerda em cima
 
             pecorreEsquerda(img, listaPixels, indice, altura, pixel);
@@ -140,7 +140,7 @@ public class Funcoes {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
         Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeentrada(true);
+        pixelASerAlterado.isEhParedeEntrada(true);
         listaPixels.set(indice, pixelASerAlterado);
         for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
           if (listaPixels.contains(pixel)) {
@@ -160,7 +160,7 @@ public class Funcoes {
     for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeentrada(true);
+        pixelASerAlterado.setEhParedeEntrada(true);
         listaPixels.set(indice, pixelASerAlterado);
         for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
           if(listaPixels.contains(pixel)){
@@ -217,7 +217,7 @@ public class Funcoes {
     for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
       if(!listaPixels.contains(pixel)){
         Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeentrada(true);
+        pixelASerAlterado.setEhParedeEntrada(true);
         listaPixels.set(indice, pixelASerAlterado);
         for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
           if(listaPixels.contains(pixel)){
@@ -233,7 +233,7 @@ public class Funcoes {
       for (int widthAbaixo = width; widthAbaixo < img.getWidth(); ++widthAbaixo) {
         if (!listaPixels.contains(pixel)) {
           Pixel pixelASerAlterado = listaPixels.get(indice);
-          pixelASerAlterado.setEhParedeentrada(true);
+          pixelASerAlterado.setEhParedeEntrada(true);
           listaPixels.set(indice, pixelASerAlterado);
           for (int widthAbaixoAchouEntrada = widthAbaixo; widthAbaixoAchouEntrada < img.getWidth(); ++widthAbaixoAchouEntrada) {
             if (listaPixels.contains(pixel)) {
@@ -252,7 +252,7 @@ public class Funcoes {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
         Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeentrada(true);
+        pixelASerAlterado.setEhParedeEntrada(true);
         listaPixels.set(indice, pixelASerAlterado);
         for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
           if (listaPixels.contains(pixel)) {
@@ -268,7 +268,7 @@ public class Funcoes {
         for (int alturadireita = altura; alturadireita < img.getWidth(); ++alturadireita) {
           if (!listaPixels.contains(pixel)) {
             Pixel pixelASerAlterado = listaPixels.get(indice);
-            pixelASerAlterado.setEhParedeentrada(true);
+            pixelASerAlterado.setEhParedeEntrada(true);
             listaPixels.set(indice, pixelASerAlterado);
             for (int alturadireitaAchouEntrada = alturadireita; alturadireitaAchouEntrada < img.getWidth(); ++alturadireitaAchouEntrada) {
               if (listaPixels.contains(pixel)) {
