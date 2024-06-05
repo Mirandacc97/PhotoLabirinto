@@ -136,6 +136,21 @@ public class Funcoes {
     return listaPixels;
   }
 
+  public static Pixel[][] definePixelsParede(Pixel[][] listaPixels, int rgbParede) {
+    for (int i = 0; i < listaPixels.length; i++)
+      for (int j = 0; j < listaPixels[i].length; j++)
+        if (listaPixels[i][j].getRgb() == rgbParede)
+          listaPixels[i][j].setEhParede(true);
+    return listaPixels;
+}
+  public static int retornaCorParede(BufferedImage img) {
+    for(int i = 0; i < img.getHeight(); ++i)
+      for (int j = 0; j < img.getWidth(); ++j)
+        if (img.getRGB(j, i) != img.getRGB(0, 0))
+          return img.getRGB(j, i);
+ return 0;
+}
+
   private static List<Pixel> pecorreCima(BufferedImage img, List<Pixel> listaPixels, int indice, int width, Pixel pixel) {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
