@@ -140,7 +140,7 @@ public class Funcoes {
     for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
       if (!listaPixels.contains(pixel)) {
         Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.isEhParedeEntrada(true);
+        pixelASerAlterado.setEhParedeEntrada(true);
         listaPixels.set(indice, pixelASerAlterado);
         for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
           if (listaPixels.contains(pixel)) {
