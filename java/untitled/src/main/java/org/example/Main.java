@@ -11,6 +11,16 @@ import static org.example.uteis.Funcoes.*;
 
 public class Main {
 
+    //Matriz[][] ==
+    //  Matriz[linha][coluna] ==
+    //      Matriz[x][y] ==
+    //          Matriz[heigth][width] =
+    //              Matriz[altura][comprimento] =
+    //For primeiro Y
+    //For depois X
+    //matrizPixel[].lenght = Pega a quantidade de colunas
+    //matrizPixel.lenght = Pega a quantidade de linhas
+
     public static void main(String[] args) throws Exception {
         BufferedImage imagem = manipular_imagem.abrirImagem("labirinto_01.png");
 
@@ -19,8 +29,11 @@ public class Main {
                 imagem,
                 imagem
         );
-        int rbgParede = buscaCorParede(imagem);
-        //perguntaSeEhParede(rbgParede, imagemUtilizada);
+
+        Pixel[][] matrizPixels = Funcoes.geraMatrizAPartirDaImagem(imagem);
+        int rbgParede = retornaCorParede(imagem);
+        matrizPixels = definePixelsParede(matrizPixels, retornaCorParede(imagem));
+        matrizPixels = procuraEntradaLabirinto()
 
         //Este trecho deveria estar em um if, mas em carater de teste ele só executa
         List<Pixel> listaPixels = Funcoes.geraListaAPartirDaImagem(imagem);
