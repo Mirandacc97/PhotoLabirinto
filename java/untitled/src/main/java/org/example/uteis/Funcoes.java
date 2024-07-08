@@ -1,13 +1,11 @@
 package org.example.uteis;
 
+import org.example.HelperImagens;
 import org.example.objeto.Pixel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class Funcoes {
 
@@ -27,7 +25,7 @@ public class Funcoes {
   }
 
   public static BufferedImage binarizacao(BufferedImage imgEntrada, int limiar) {
-    BufferedImage imgSaida = new BufferedImage(imgEntrada.getWidth(), imgEntrada.getHeight(), imgEntrada.getType());
+    BufferedImage imgSaida = HelperImagens.criaImagemNova(imgEntrada.getWidth(), imgEntrada.getHeight());
     for(int altura = 0; altura < imgEntrada.getHeight(); ++altura) {
       for(int largura = 0; largura < imgEntrada.getWidth(); ++largura) {
         int rgb = imgEntrada.getRGB(largura, altura);
@@ -39,21 +37,6 @@ public class Funcoes {
       }
     }
     return imgSaida;
-  }
-
-  public static List<Pixel> procuraEntradaLabirinto(Pixel[][] matrizPixel) throws Exception {
-    Pixel posicaoInicialLabirinto = null;
-    for (int y = 0; y < matrizPixel.length; y++) {
-      for (int x = 0; x < matrizPixel[y].length; x++) {
-        if (matrizPixel[x][y].getRgb() != matrizPixel[0][0].getRgb()) {
-          posicaoInicialLabirinto = matrizPixel[x][y];
-          break;
-        }
-      }
-      if (posicaoInicialLabirinto != null)
-        break;
-    }
-    procuraEntradaEmAltura(matrizPixel, posicaoInicialLabirinto);
   }
 
   public static Pixel[][] definePixelsParede(Pixel[][] listaPixels, int rgbParede) {
@@ -70,175 +53,6 @@ public class Funcoes {
         if (img.getRGB(j, i) != img.getRGB(0, 0))
           return img.getRGB(j, i);
     return 0;
-  }
-
-  private static List<Pixel> pecorreCima(BufferedImage img, List<Pixel> listaPixels, int indice, int width, Pixel pixel) {
-    for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
-      if (!listaPixels.contains(pixel)) {
-        Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeEntrada(true);
-        listaPixels.set(indice, pixelASerAlterado);
-        for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
-          if (listaPixels.contains(pixel)) {
-            Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado.setEhpixelEntradaFinal(true);
-            listaPixels.set(indice, pixelASerAlterado2);
-            return listaPixels;
-          }
-          indice++;
-        }
-      }
-    }
-    return null;
-  }
-
-  private static List<Pixel> pecorreEsquerda(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, Pixel pixel) {
-    for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
-      if(!listaPixels.contains(pixel)){
-        Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeEntrada(true);
-        listaPixels.set(indice, pixelASerAlterado);
-        for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
-          if(listaPixels.contains(pixel)){
-            Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado2. setEhpixelEntradaFinal(true);
-            listaPixels.set(indice, pixelASerAlterado2);
-            return listaPixels;
-          }
-          indice++;
-        }
-        }
-      }
-    return null;
-  }
-
-  private static Pixel[] procuraEntradaEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
-    for (int x = pixelInicial.getHeight() + 1; x < matrizPixel[].length; x++) {
-      if (!matrizPixel[x][pixelInicial.getWidth()].isEhParede()) {
-        matrizPixel[pixelInicial.getWidth()][y].setEhpixelEntrada(true);
-        completaPixelsEntradaLabirintoEmAltura(matrizPixel, matrizPixel[pixelInicial.getWidth()][y]);
-      }
-    }
-    return (Pixel[]) pixelsIniciaisEFinaisDeEntradaLabirinto.toArray();
-  }
-
-  private static List<Pixel> percorreEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
-    List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
-    int qtdePixelsPorLinha = listaPixels.size() / img.getHeight();
-    while (indice <= listaPixels.size()) {
-      if (!listaPixels.get(indice).isEhParede()) {
-        retornaPixelInicialEFinal.add(listaPixels.get(indice));
-        indice += qtdePixelsPorLinha;
-        while (indice <= listaPixels.size()){
-          if (listaPixels.get(indice).isEhParede()) {
-            retornaPixelInicialEFinal.add(listaPixels.get(indice));
-            return retornaPixelInicialEFinal;
-          }
-          indice += qtdePixelsPorLinha;
-        }
-        break;
-      }
-    }
-    return new ArrayList<>();
-  }
-
-  private static List<Pixel> pecorreBaixo(BufferedImage img, List<Pixel> listaPixels, int indice, int width, int altura, Pixel pixel) {
-    for(int alturaEsquerda = altura; alturaEsquerda< img.getWidth(); ++alturaEsquerda){
-      if(!listaPixels.contains(pixel)){
-        Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeEntrada(true);
-        listaPixels.set(indice, pixelASerAlterado);
-        for(int alturaEsquerdaAchouEntrada = alturaEsquerda; alturaEsquerdaAchouEntrada< img.getWidth(); ++alturaEsquerdaAchouEntrada) {
-          if(listaPixels.contains(pixel)){
-            Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado2.setEhpixelEntradaFinal(true);
-            listaPixels.set(indice, pixelASerAlterado2);
-            return listaPixels;
-          }
-          indice++;
-        }
-      }
-    }
-      for (int widthAbaixo = width; widthAbaixo < img.getWidth(); ++widthAbaixo) {
-        if (!listaPixels.contains(pixel)) {
-          Pixel pixelASerAlterado = listaPixels.get(indice);
-          pixelASerAlterado.setEhParedeEntrada(true);
-          listaPixels.set(indice, pixelASerAlterado);
-          for (int widthAbaixoAchouEntrada = widthAbaixo; widthAbaixoAchouEntrada < img.getWidth(); ++widthAbaixoAchouEntrada) {
-            if (listaPixels.contains(pixel)) {
-              Pixel pixelASerAlterado2 = listaPixels.get(indice);
-              pixelASerAlterado2. setEhpixelEntradaFinal(true);
-              listaPixels.set(indice, pixelASerAlterado2);
-              return listaPixels;
-            }
-            indice++;
-          }
-        }
-      }
-    return null;
-  }
-
-  private static List<Pixel> pecorreDireita(BufferedImage img, List<Pixel> listaPixels, int indice, int altura, int width, Pixel pixel) {
-    for(int widthCima = width; widthCima< img.getWidth(); ++widthCima) {
-      if (!listaPixels.contains(pixel)) {
-        Pixel pixelASerAlterado = listaPixels.get(indice);
-        pixelASerAlterado.setEhParedeEntrada(true);
-        listaPixels.set(indice, pixelASerAlterado);
-        for (int widthCimaAchouEntrada = widthCima; widthCimaAchouEntrada < img.getWidth(); ++widthCimaAchouEntrada) {
-          if (listaPixels.contains(pixel)) {
-            Pixel pixelASerAlterado2 = listaPixels.get(indice);
-            pixelASerAlterado. setEhpixelEntradaFinal(true);
-            listaPixels.set(indice, pixelASerAlterado2);
-            return listaPixels;
-          }
-          indice++;
-        }
-      }
-    }
-        for (int alturadireita = altura; alturadireita < img.getWidth(); ++alturadireita) {
-          if (!listaPixels.contains(pixel)) {
-            Pixel pixelASerAlterado = listaPixels.get(indice);
-            pixelASerAlterado.setEhParedeEntrada(true);
-            listaPixels.set(indice, pixelASerAlterado);
-            for (int alturadireitaAchouEntrada = alturadireita; alturadireitaAchouEntrada < img.getWidth(); ++alturadireitaAchouEntrada) {
-              if (listaPixels.contains(pixel)) {
-                Pixel pixelASerAlterado2 = listaPixels.get(indice);
-                pixelASerAlterado2.setEhpixelEntradaFinal(true);
-                listaPixels.set(indice, pixelASerAlterado2);
-                return listaPixels;
-              }
-              indice++;
-            }
-          }
-        }
-    return null;
-  }
-
-  public static List<Pixel> definePixelsParede(List<Pixel> listaPixels, int rgbParede) {
-    for (int i=0; i < listaPixels.size(); i++)
-      if (listaPixels.get(i).getRgb() == rgbParede) {
-        Pixel pixelParaSerParede = listaPixels.get(i);
-        pixelParaSerParede.setEhParede(true);
-        listaPixels.set(i, pixelParaSerParede);
-      }
-    return listaPixels;
-  }
-
-  private static void marcaEntrada(List<Pixel> pixelsDaEntrada, List<Pixel> listaPixels, BufferedImage img) {
-    Pixel[][] matrizDePixels = new Pixel[img.getWidth()][img.getHeight()];
-    for (int i = 0; i < img.getWidth(); i++) {
-      for (int j = 0; j < img.getHeight(); j++) {
-        Pixel pixelAGravar = new Pixel();
-        pixelAGravar.setHeight(j);
-        pixelAGravar.setWidth(i);
-        pixelAGravar.setRgb(img.getRGB(i, j));
-        for(Pixel px: pixelsDaEntrada) {
-          if (px.getWidth() == i && px.getHeight() == j)
-            pixelAGravar.isEhpixelEntradaFinal();
-        }
-        matrizDePixels[i][j] = pixelAGravar;
-      }
-    }
   }
 
   public static BufferedImage geraImagemAPartirDeMatriz(Pixel[][] matrizDePixels, BufferedImage img) {
@@ -266,13 +80,37 @@ public class Funcoes {
     return matrizDePixels;
   }
 
-  private static Pixel[][] completaPixelsEntradaLabirintoEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
-    for (int x = pixelInicial.getWidth(); y < matrizPixel[pixelInicial.getHeight()].length; y++) {
-      if (matrizPixel[][].isEhParede())
-        matrizPixel[x + 1][pixelInicial.getHeight()].setEhpixelEntrada(true);
-    }
-  }
+}
 
+//  public static List<Pixel> procuraEntradaLabirinto(Pixel[][] matrizPixel) throws Exception {
+//    Pixel posicaoInicialLabirinto = null;
+//    for (int y = 0; y < matrizPixel.length; y++) {
+//      for (int x = 0; x < matrizPixel[y].length; x++) {
+//        if (matrizPixel[x][y].getRgb() != matrizPixel[0][0].getRgb()) {
+//          posicaoInicialLabirinto = matrizPixel[x][y];
+//          break;
+//        }
+//      }
+//      if (posicaoInicialLabirinto != null)
+//        break;
+//    }
+//    procuraEntradaEmAltura(matrizPixel, posicaoInicialLabirinto);
+//  }
+//  private static Pixel[] procuraEntradaEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
+//    for (int x = pixelInicial.getHeight() + 1; x < matrizPixel[].length; x++) {
+//      if (!matrizPixel[x][pixelInicial.getWidth()].isEhParede()) {
+//        matrizPixel[pixelInicial.getWidth()][y].setEhpixelEntrada(true);
+//        completaPixelsEntradaLabirintoEmAltura(matrizPixel, matrizPixel[pixelInicial.getWidth()][y]);
+//      }
+//    }
+//    return (Pixel[]) pixelsIniciaisEFinaisDeEntradaLabirinto.toArray();
+//  }
+//  private static Pixel[][] completaPixelsEntradaLabirintoEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
+//    for (int x = pixelInicial.getWidth(); y < matrizPixel[pixelInicial.getHeight()].length; y++) {
+//      if (matrizPixel[][].isEhParede())
+//        matrizPixel[x + 1][pixelInicial.getHeight()].setEhpixelEntrada(true);
+//    }
+//  }
 //  public static int buscaCorParede(BufferedImage img) {
 //    int corUm = 0;
 //    int corDois = 0;
@@ -311,5 +149,22 @@ public class Funcoes {
 //      throw new RuntimeException(e);
 //    }
 //  }
-
-}
+//  private static List<Pixel> percorreEmAltura(Pixel[][] matrizPixel, Pixel pixelInicial) {
+//    List<Pixel> retornaPixelInicialEFinal = new ArrayList<Pixel>();
+//    int qtdePixelsPorLinha = listaPixels.size() / img.getHeight();
+//    while (indice <= listaPixels.size()) {
+//      if (!listaPixels.get(indice).isEhParede()) {
+//        retornaPixelInicialEFinal.add(listaPixels.get(indice));
+//        indice += qtdePixelsPorLinha;
+//        while (indice <= listaPixels.size()){
+//          if (listaPixels.get(indice).isEhParede()) {
+//            retornaPixelInicialEFinal.add(listaPixels.get(indice));
+//            return retornaPixelInicialEFinal;
+//          }
+//          indice += qtdePixelsPorLinha;
+//        }
+//        break;
+//      }
+//    }
+//    return new ArrayList<>();
+//  }

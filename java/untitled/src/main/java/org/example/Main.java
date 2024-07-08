@@ -4,46 +4,38 @@ import org.example.objeto.Pixel;
 import org.example.uteis.Funcoes;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
-import java.util.Scanner;
 
 import static org.example.uteis.Funcoes.*;
 
 public class Main {
 
-    //Matriz[][] ==
-    //  Matriz[linha][coluna] ==
-    //      Matriz[x][y] ==
-    //          Matriz[heigth][width] =
-    //              Matriz[altura][comprimento] =
-    //For primeiro Y
-    //For depois X
-    //matrizPixel[].lenght = Pega a quantidade de colunas
-    //matrizPixel.lenght = Pega a quantidade de linhas
-
     public static void main(String[] args) throws Exception {
         BufferedImage imagem = manipular_imagem.abrirImagem("labirinto_01.png");
 
         manipular_imagem.salvarImagem(Funcoes.binarizacao(imagem,15),"PNG","labirinto_01.png");
-        manipular_imagem.exibirImagem(
-                imagem,
-                imagem
-        );
+        manipular_imagem.exibirImagem(imagem, imagem);
 
-        Pixel[][] matrizPixels = Funcoes.geraMatrizAPartirDaImagem(imagem);
         int rbgParede = retornaCorParede(imagem);
-        matrizPixels = definePixelsParede(matrizPixels, retornaCorParede(imagem));
-        matrizPixels = procuraEntradaLabirinto()
-
-        //Este trecho deveria estar em um if, mas em carater de teste ele só executa
-        List<Pixel> listaPixels = Funcoes.geraListaAPartirDaImagem(imagem);
-        listaPixels = Funcoes.definePixelsParede(listaPixels, rbgParede);
-//        exibeImagem(geraImagemAPartirDeLista(listaPixels, imagem));
-        listaPixels = procuraEntradaLabirinto(imagem, listaPixels);
-
+        marcaPixelsComMesmoRGB(imagem, rbgParede);
         Pixel[][] matrizPixels = Funcoes.geraMatrizAPartirDaImagem(imagem);
-        exibeImagem(geraImagemAPartirDeMatriz(matrizPixels, imagem));
+        matrizPixels = definePixelsParede(matrizPixels, retornaCorParede(imagem));
+    }
 
+    private static void marcaPixelsComMesmoRGB(BufferedImage imagemASerAlterada, int rgbASerAlterado) {
+        BufferedImage novaImagem = HelperImagens.criaImagemNova(imagemASerAlterada.getWidth(), imagemASerAlterada.getHeight());
+        for (int i = 0; i < novaImagem.getWidth(); i++) {
+            System.out.println("Posição X - " + i);
+            for (int j = 0; j < novaImagem.getHeight(); j++) {
+                System.out.println("Posição Y - " + j);
+                if (imagemASerAlterada.getRGB(i, j) == rgbASerAlterado) {
+                    System.out.println("Encontrei cor diferente!");
+                    novaImagem.setRGB(i, j, 150);
+                } else {
+                    novaImagem.setRGB(i, j, imagemASerAlterada.getRGB(i, j));
+                }
+            }
+        }
+        Funcoes.exibeImagem(novaImagem);
     }
 
 }
